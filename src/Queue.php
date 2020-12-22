@@ -65,7 +65,9 @@ class Queue {
 
     // Define Redis client
     if (isset($opts['redis']) && $opts['redis'] instanceof Redis) {
-      $this->redis = ($opts['redis'] instanceof Redis ? $opts['redis'] : new Redis($opts['redis']));
+      $this->redis = $opts['redis'];
+    } elseif (isset($opts['redis']) && is_array($opts['redis'])) {
+      $this->redis = new Redis($opts['redis']);
     } else {
       $this->redis = new Redis();
     }
